@@ -1,15 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const mongoose = require('mongoose');
+var express = require('express')
+var router = express.Router()
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-    mongoose.connect('mongodb://localhost:27017/pbd', {
-        useNewUrlParser: true
-    });
-    var db = mongoose.connection;
-    db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-    res.render('index', { title: 'Hospital' });
-});
+router.get('/', function (req, res, next) {
+  res.render('index', { title: 'Express' })
+})
 
-module.exports = router;
+module.exports = router
