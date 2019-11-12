@@ -1,41 +1,46 @@
 const Paciente = require('../models/paciente')
 
-// Display list of all Patients.
-exports.author_list = function (req, res) {
-  res.send('NOT IMPLEMENTED: Patient list')
+// Display list of all Pacientes.
+exports.index = function (req, res) {
+  res.send('NOT IMPLEMENTED: Index')
 }
 
-// Display detail page for a specific Patient.
-exports.author_detail = function (req, res) {
-  res.send('NOT IMPLEMENTED: Patient detail: ' + req.params.id)
+// Display list of all Pacientes.
+exports.paciente_list = function (req, res) {
+  res.send('NOT IMPLEMENTED: Paciente list')
 }
 
-// Display Patient create form on GET.
-exports.author_create_get = function (req, res) {
-  res.send('NOT IMPLEMENTED: Patient create GET')
+// Display detail page for a specific Paciente.
+exports.paciente_detail = function (req, res) {
+  res.send('NOT IMPLEMENTED: Paciente detail: ' + req.params.id)
 }
 
-// Handle Patient create on POST.
-exports.author_create_post = function (req, res) {
-  res.send('NOT IMPLEMENTED: Patient create POST')
+// Display Paciente create form on GET.
+exports.paciente_create_get = function (req, res) {
+  res.send('NOT IMPLEMENTED: Paciente create GET')
 }
 
-// Display Patient delete form on GET.
-exports.author_delete_get = function (req, res) {
-  res.send('NOT IMPLEMENTED: Patient delete GET')
+// Handle Paciente create on POST.
+exports.paciente_create_post = function (req, res) {
+  res.send('NOT IMPLEMENTED: Paciente create POST')
 }
 
-// Handle Patient delete on POST.
-exports.author_delete_post = function (req, res) {
-  res.send('NOT IMPLEMENTED: Patient delete POST')
+// Display Paciente delete form on GET.
+exports.paciente_delete_get = function (req, res) {
+  res.send('NOT IMPLEMENTED: Paciente delete GET')
 }
 
-// Display Patient update form on GET.
-exports.author_update_get = function (req, res) {
-  res.send('NOT IMPLEMENTED: Patient update GET')
+// Handle Paciente delete on POST.
+exports.paciente_delete_post = function (req, res) {
+  res.send('NOT IMPLEMENTED: Paciente delete POST')
 }
 
-// Handle Patient update on POST.
-exports.author_update_post = function (req, res) {
-  res.send('NOT IMPLEMENTED: Patient update POST')
+// Display Paciente update form on GET.
+exports.paciente_update_get = function (req, res) {
+  res.send('NOT IMPLEMENTED: Paciente update GET')
+}
+
+// Handle Paciente update on POST.
+exports.paciente_update_post = function (req, res) {
+  res.send('NOT IMPLEMENTED: Paciente update POST')
 }
