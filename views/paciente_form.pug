@@ -18,7 +18,7 @@ block content
     input#tipo_sangue_pac.form-control(type='text' placeholder='Sexo do paciente' name='tipo_sangue_pac' required='true' value=(undefined===paciente ? '' : paciente.tipo_sangue_pac))
     label(for='cpf_responsavel') CPF do responsável:
     input#cpf_responsavel.form-control(type='text' placeholder='CPF do responsável' name='cpf_responsavel' required='true' value=(undefined===paciente ? '' : paciente.cpf_responsavel))
-    button.btn.btn-primary(type='submit') Submit
+    button.btn.btn-primary(type='submit') Enviar
   if errors 
     ul
       for error in errors
