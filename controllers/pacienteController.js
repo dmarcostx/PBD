@@ -1,6 +1,5 @@
 const { body, validationResult } = require('express-validator/check')
 const { sanitizeBody } = require('express-validator/filter')
-
 const Paciente = require('../models/paciente')
 
 // Display list of all Pacientes.
@@ -9,8 +8,14 @@ exports.index = function (req, res) {
 }
 
 // Display list of all Pacientes.
-exports.paciente_list = function (req, res) {
-  res.send('NOT IMPLEMENTED: Paciente list')
+exports.paciente_list = function (req, res, next) {
+  Paciente.find()
+    .sort([['nome', 'ascending']])
+    .exec(function (err, pacientes) {
+      if (err) { return next(err) }
+      // Successful, so render
+      res.render('paciente_list', { title: 'Lista de pacientes', paciente_list: pacientes })
+    })
 }
 
 // Display detail page for a specific Paciente.
@@ -26,22 +31,22 @@ exports.paciente_create_get = function (req, res) {
 // Handle Paciente create on POST.
 exports.paciente_create_post = [
   // Validate fields.
-  body('nome_pac').isLength({ min: 2 }).trim().withMessage('Insira o nome do paciente.').isAlphanumeric().withMessage('O nome possuí caracteres especiais.'),
-  body('end_pac').isLength({ min: 3 }).trim().withMessage('Insira o endereço do paciente.').isAlphanumeric().withMessage('O endereço possuí caracteres especiais.'),
-  body('dt_nascto_pac').isISO8601().withMessage('Data de nascimento não está no formato esperado.'),
-  body('fone_pac').optional({ checkFalsy: true }).isLength({ min: 8 }).trim().withMessage('Telefone muito curto.').isAlphanumeric().withMessage('O telefone possuí caracteres especiais.'),
-  body('sexo_pac').isLength({ min: 1 }).trim().withMessage('Insira o sexo do paciente.').isAlphanumeric().withMessage('O sexo possuí caracteres especiais.'),
-  body('tipo_sangue_pac').isLength({ min: 1 }).trim().withMessage('Insira o tipo de sangue do paciente.').isAlphanumeric().withMessage('O tipo de sangue possuí caracteres especiais.'),
-  body('cpf_responsavel').isLength({ min: 11 }).trim().withMessage('Insira o CPF do responsável.').isAlphanumeric().withMessage('O CPF do responsável possuí caracteres especiais.'),
+  body('nome').isLength({ min: 2 }).trim().withMessage('Insira o nome do paciente.').isAlphanumeric().withMessage('O nome possuí caracteres especiais.'),
+  body('dt_nascto').isISO8601().withMessage('Data de nascimento não está no formato esperado.'),
+  body('sexo').isLength({ min: 1 }).trim().withMessage('Insira o sexo do paciente.').isAlphanumeric().withMessage('O sexo possuí caracteres especiais.'),
+  body('tipo_sangue').isLength({ min: 1 }).trim().withMessage('Insira o tipo de sangue do paciente.').isAlphanumeric().withMessage('O tipo de sangue possuí caracteres especiais.'),
+  body('cpf').optional({ checkFalsy: true }).isLength({ min: 11 }).trim().withMessage('Insira o CPF do paciente.').isAlphanumeric().withMessage('O CPF do responsável possuí caracteres especiais.'),
+  body('doencas_pre').optional({ checkFalsy: true }).isLength({ min: 1 }).trim().withMessage('Insira as doenças pré existentes do paciente.').isAlphanumeric().withMessage('As doenças pré existentes possuem caracteres especiais.'),
+  body('internacoes').optional({ checkFalsy: true }).isLength({ min: 1 }).trim().withMessage('Insira as internações do paciente.').isAlphanumeric().withMessage('As internações possuem caracteres especiais.'),
 
   // Sanitize fields.
-  sanitizeBody('nome_pac').escape(),
-  sanitizeBody('end_pac').escape(),
-  sanitizeBody('dt_nascto_pac').toDate(),
-  sanitizeBody('fone_pac').escape(),
-  sanitizeBody('sexo_pac').escape(),
-  sanitizeBody('tipo_sangue_pac').escape(),
-  sanitizeBody('cpf_responsavel').escape(),
+  sanitizeBody('nome').escape(),
+  sanitizeBody('dt_nascto').toDate(),
+  sanitizeBody('sexo').escape(),
+  sanitizeBody('tipo_sangue').escape(),
+  sanitizeBody('cpf').escape(),
+  sanitizeBody('doencas_pre').escape(),
+  sanitizeBody('internacoes').escape(),
 
   // Process request after validation and sanitization.
   (req, res, next) => {

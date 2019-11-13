@@ -1,12 +1,19 @@
-var createError = require('http-errors')
-var express = require('express')
-var path = require('path')
-var cookieParser = require('cookie-parser')
-var logger = require('morgan')
+const createError = require('http-errors')
+const express = require('express')
+const path = require('path')
+const cookieParser = require('cookie-parser')
+const logger = require('morgan')
 
-var indexRouter = require('./routes/index')
+const indexRouter = require('./routes/index')
 
-var app = express()
+const app = express()
+
+// Set up mongoose connection
+const mongoose = require('mongoose')
+mongoose.connect('mongodb://127.0.0.1:27017/pbd_internacao', { useNewUrlParser: true })
+mongoose.Promise = global.Promise
+const db = mongoose.connection
+db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))

@@ -3,14 +3,17 @@ const Schema = mongoose.Schema
 
 const PacienteSchema = new Schema(
   {
-    cod_paciente: { type: Number, required: true },
-    nome_pac: { type: String, required: true },
-    end_pac: { type: String, required: true },
-    dt_nascto_pac: { type: Date, required: true },
-    fone_pac: { type: String },
-    sexo_pac: { type: String, required: true },
-    tipo_sangue_pac: { type: String, required: true },
-    cpf_responsavel: { type: Number, required: true }
+    prontuario: { type: Number, required: true },
+    nome: { type: String, required: true },
+    sexo: { type: String, required: true },
+    dt_nascto: { type: Date, required: true },
+    tipo_sangue: { type: String, required: true },
+    internacoes: [Number],
+    cpf: { type: Number },
+    doencas_pre: [{ doenca: String, desde: Number }]
+  },
+  {
+    collection: 'paciente'
   }
 )
 
@@ -22,4 +25,4 @@ PacienteSchema
   })
 
 // Export model
-module.exports = mongoose.model('Paciente', PacienteSchema)
+module.exports = mongoose.model('paciente', PacienteSchema)

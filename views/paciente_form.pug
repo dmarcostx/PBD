@@ -4,20 +4,22 @@ block content
   h1=title
 
   form(method='POST' action='')
-    label(for='nome_pac') Nome:
-    input#nome_pac.form-control(type='text' placeholder='Nome do paciente' name='nome_pac' required='true' value=(undefined===paciente ? '' : paciente.nome_pac) )
-    label(for='end_pac') Endereço:
-    input#end_pac.form-control(type='text' placeholder='Endereço do paciente' name='end_pac' required='true' value=(undefined===paciente ? '' : paciente.end_pac))
-    label(for='dt_nascto_pac') Data de nascimento:
-    input#dt_nascto_pac.form-control(type='date' name='dt_nascto_pac' value=(undefined===paciente ? '' : paciente.dt_nascto_pac) )
-    label(for='fone_pac') Telefone:
-    input#fone_pac.form-control(type='tel' placeholder='Telefone do paciente' name='fone_pac' required='false' value=(undefined===paciente ? '' : paciente.fone_pac))
-    label(for='sexo_pac') Sexo:
-    input#sexo_pac.form-control(type='text' placeholder='Sexo do paciente' name='sexo_pac' required='true' value=(undefined===paciente ? '' : paciente.sexo_pac))
-    label(for='tipo_sangue_pac') Tipo de sangue:
-    input#tipo_sangue_pac.form-control(type='text' placeholder='Sexo do paciente' name='tipo_sangue_pac' required='true' value=(undefined===paciente ? '' : paciente.tipo_sangue_pac))
-    label(for='cpf_responsavel') CPF do responsável:
-    input#cpf_responsavel.form-control(type='text' placeholder='CPF do responsável' name='cpf_responsavel' required='true' value=(undefined===paciente ? '' : paciente.cpf_responsavel))
+    label(for='prontuario') Prontuário:
+    input.form-control(type='number' placeholder='Prontuário do paciente' name='prontuario' required='true' value=(undefined===paciente ? '' : paciente.prontuario) )
+    label(for='nome') Nome:
+    input.form-control(type='latin-name' placeholder='Nome do paciente' name='nome' required='true' value=(undefined===paciente ? '' : paciente.nome) )
+    label(for='dt_nascto') Data de nascimento:
+    input.form-control(type='date' name='dt_nascto' required='true' value=(undefined===paciente ? '' : paciente.dt_nascto) )
+    label(for='sexo') Sexo:
+    input.form-control(type='text' placeholder='Sexo do paciente' name='sexo' required='true' value=(undefined===paciente ? '' : paciente.sexo_pac))
+    label(for='tipo_sangue') Tipo de sangue:
+    input.form-control(type='text' placeholder='Sexo do paciente' name='tipo_sangue' required='true' value=(undefined===paciente ? '' : paciente.tipo_sangue_pac))
+    label(for='cpf') CPF:
+    input.form-control(type='number' placeholder='CPF do paciente' name='cpf' value=(undefined===paciente ? '' : paciente.cpf_responsavel))
+    label(for='doencas_pre') Doenças pré existentes:
+    input.form-control(type='text' placeholder='Doenças pré existentes do paciente' name='doencas_pre' value=(undefined===paciente ? '' : paciente.doencas_pre))
+    label(for='internacoes') Internações:
+    input.form-control(type='number' placeholder='Internações do paciente' name='internacoes' value=(undefined===paciente ? '' : paciente.internacoes))
     button.btn.btn-primary(type='submit') Enviar
   if errors 
     ul
