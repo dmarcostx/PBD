@@ -1,3 +1,6 @@
+const { body,validationResult } = require('express-validator/check');
+const { sanitizeBody } = require('express-validator/filter');
+
 const Paciente = require('../models/paciente')
 
 // Display list of all Pacientes.
