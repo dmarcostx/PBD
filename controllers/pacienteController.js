@@ -72,7 +72,7 @@ exports.paciente_create_post = [
       })
     }
   }
-];
+]
 
 // Display Paciente delete form on GET.
 exports.paciente_delete_get = function (req, res) {
