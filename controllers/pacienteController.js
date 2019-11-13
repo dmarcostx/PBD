@@ -24,7 +24,7 @@ exports.paciente_create_get = function (req, res) {
 }
 
 // Handle Paciente create on POST.
-exports.paciente_create_post = {
+exports.paciente_create_post = [
   // Validate fields.
   body('nome_pac').isLength({ min: 2 }).trim().withMessage('Insira o nome do paciente.').isAlphanumeric().withMessage('O nome possuí caracteres especiais.'),
   body('end_pac').isLength({ min: 3 }).trim().withMessage('Insira o endereço do paciente.').isAlphanumeric().withMessage('O endereço possuí caracteres especiais.'),
@@ -72,7 +72,7 @@ exports.paciente_create_post = {
       })
     }
   }
-}
+];
 
 // Display Paciente delete form on GET.
 exports.paciente_delete_get = function (req, res) {
