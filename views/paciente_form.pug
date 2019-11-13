@@ -4,28 +4,21 @@ block content
   h1=title
 
   form(method='POST' action='')
-    label(for='nome_pac') Nome: 
-    input(type='text' placeholder='Nome do paciente' name='nome_pac' required='true' value=(undefined===paciente ? '' : paciente.nome_pac))
-    br
-    label(for='end_pac') Endereço: 
-    input(type='text' placeholder='Endereço do paciente' name='end_pac' required='true' value=(undefined===paciente ? '' : paciente.end_pac))
-    br
-    label(for='dt_nascto_pac') Data de nascimento: 
-    input(type='date' name='dt_nascto_pac' value=(undefined===paciente ? '' : paciente.dt_nascto_pac))
-    br
-    label(for='fone_pac') Telefone: 
-    input(type='tel' placeholder='Telefone do paciente' name='fone_pac' required='false' value=(undefined===paciente ? '' : paciente.fone_pac))
-    br
-    label(for='sexo_pac') Sexo: 
-    input(type='text' placeholder='Sexo do paciente' name='sexo_pac' required='true' value=(undefined===paciente ? '' : paciente.sexo_pac))
-    br
-    label(for='tipo_sangue_pac') Tipo de sangue: 
-    input(type='text' placeholder='Sexo do paciente' name='tipo_sangue_pac' required='true' value=(undefined===paciente ? '' : paciente.tipo_sangue_pac))
-    br
-    label(for='cpf_responsavel') CPF do responsável: 
-    input(type='text' placeholder='CPF do responsável' name='cpf_responsavel' required='true' value=(undefined===paciente ? '' : paciente.cpf_responsavel))
-    br
-    button.btn.btn-primary(type='submit') Cadastrar
+    label(for='nome_pac') Nome:
+    input#nome_pac.form-control(type='text' placeholder='Nome do paciente' name='nome_pac' required='true' value=(undefined===paciente ? '' : paciente.nome_pac) )
+    label(for='end_pac') Endereço:
+    input#end_pac.form-control(type='text' placeholder='Endereço do paciente' name='end_pac' required='true' value=(undefined===paciente ? '' : paciente.end_pac))
+    label(for='dt_nascto_pac') Data de nascimento:
+    input#dt_nascto_pac.form-control(type='date' name='dt_nascto_pac' value=(undefined===paciente ? '' : paciente.dt_nascto_pac) )
+    label(for='fone_pac') Telefone:
+    input#fone_pac.form-control(type='tel' placeholder='Telefone do paciente' name='fone_pac' required='false' value=(undefined===paciente ? '' : paciente.fone_pac))
+    label(for='sexo_pac') Sexo:
+    input#sexo_pac.form-control(type='text' placeholder='Sexo do paciente' name='sexo_pac' required='true' value=(undefined===paciente ? '' : paciente.sexo_pac))
+    label(for='tipo_sangue_pac') Tipo de sangue:
+    input#tipo_sangue_pac.form-control(type='text' placeholder='Sexo do paciente' name='tipo_sangue_pac' required='true' value=(undefined===paciente ? '' : paciente.tipo_sangue_pac))
+    label(for='cpf_responsavel') CPF do responsável:
+    input#cpf_responsavel.form-control(type='text' placeholder='CPF do responsável' name='cpf_responsavel' required='true' value=(undefined===paciente ? '' : paciente.cpf_responsavel))
+    button.btn.btn-primary(type='submit') Submit
   if errors 
     ul
       for error in errors
