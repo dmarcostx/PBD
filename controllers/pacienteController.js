@@ -19,8 +19,8 @@ exports.paciente_detail = function (req, res) {
 }
 
 // Display Paciente create form on GET.
-exports.paciente_create_get = function (req, res) {
-  res.send('NOT IMPLEMENTED: Paciente create GET')
+exports.paciente_create_get = function (req, res) {       
+    res.render('paciente_form', { title: 'Cadastrar paciente'});
 }
 
 // Handle Paciente create on POST.
