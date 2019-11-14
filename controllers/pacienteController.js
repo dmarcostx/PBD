@@ -28,7 +28,7 @@ exports.paciente_detail = function (req, res, next) {
     }
   }, function (err, results) {
     if (err) { return next(err) } // Error in API usage.
-    if (results.author == null) { // No results.
+    if (results.paciente == null) { // No results.
       const err = new Error('Paciente não encontrado')
       err.status = 404
       return next(err)
