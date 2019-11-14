@@ -21,7 +21,7 @@ const PacienteSchema = new Schema(
 PacienteSchema
   .virtual('url')
   .get(function () {
-    return '/paciente/' + this._id
+    return '/' + this._id
   })
 
 // Export model

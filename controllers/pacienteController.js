@@ -1,3 +1,4 @@
+const async = require('async')
 const { body, validationResult } = require('express-validator/check')
 const { sanitizeBody } = require('express-validator/filter')
 const Paciente = require('../models/paciente')
@@ -19,8 +20,22 @@ exports.paciente_list = function (req, res, next) {
 }
 
 // Display detail page for a specific Paciente.
-exports.paciente_detail = function (req, res) {
-  res.send('NOT IMPLEMENTED: Paciente detail: ' + req.params.id)
+exports.paciente_detail = function (req, res, next) {
+  async.parallel({
+    paciente: function (callback) {
+      Paciente.findById(req.params.id)
+        .exec(callback)
+    }
+  }, function (err, results) {
+    if (err) { return next(err) } // Error in API usage.
+    if (results.author == null) { // No results.
+      const err = new Error('Paciente não encontrado')
+      err.status = 404
+      return next(err)
+    }
+    // Successful, so render.
+    res.render('paciente_detail', { title: 'Ficha do paciente', paciente: results.paciente })
+  })
 }
 
 // Display Paciente create form on GET.
