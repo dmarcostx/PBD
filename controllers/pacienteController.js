@@ -95,21 +95,100 @@ exports.paciente_create_post = [
 ]
 
 // Display Paciente delete form on GET.
-exports.paciente_delete_get = function (req, res) {
-  res.send('NOT IMPLEMENTED: Paciente delete GET')
+exports.paciente_delete_get = function (req, res, next) {
+  async.parallel({
+    paciente: function (callback) {
+      Paciente.findById(req.params.id).exec(callback)
+    }
+  }, function (err, results) {
+    if (err) { return next(err) }
+    if (results.paciente == null) { // No results.
+      res.redirect('/')
+    }
+    // Successful, so render.
+    res.render('paciente_delete', { title: 'Apagar paciente', paciente: results.paciente })
+  })
 }
 
 // Handle Paciente delete on POST.
-exports.paciente_delete_post = function (req, res) {
-  res.send('NOT IMPLEMENTED: Paciente delete POST')
+exports.paciente_delete_post = function (req, res, next) {
+  async.parallel({
+    paciente: function (callback) {
+      Paciente.findById(req.body.pacienteid).exec(callback)
+    }
+  }, function (err, results) {
+    if (err) { return next(err) }
+    // Success
+    Paciente.findByIdAndRemove(req.body.pacienteid, function deletePaciente (err) {
+      if (err) { return next(err) }
+      // Success - go to paciente list
+      res.redirect('/')
+    })
+  })
 }
 
 // Display Paciente update form on GET.
-exports.paciente_update_get = function (req, res) {
-  res.send('NOT IMPLEMENTED: Paciente update GET')
+exports.paciente_update_get = function (req, res, next) {
+  Paciente.findById(req.params.id, function (err, paciente) {
+    if (err) { return next(err) }
+    if (paciente == null) { // No results.
+      const er = new Error('Paciente não encontrado')
+      er.status = 404
+      return next(er)
+    }
+    // Success.
+    res.render('paciente_form', { title: 'Atualizar paciente', paciente: paciente })
+  })
 }
 
 // Handle Paciente update on POST.
-exports.paciente_update_post = function (req, res) {
-  res.send('NOT IMPLEMENTED: Paciente update POST')
-}
+exports.paciente_update_post = [
+  // Validate fields.
+  body('nome').isLength({ min: 2 }).trim().withMessage('Insira o nome do paciente.').isAlphanumeric().withMessage('O nome possuí caracteres especiais.'),
+  body('dt_nascto').isISO8601().withMessage('Data de nascimento não está no formato esperado.'),
+  body('sexo').isLength({ min: 1 }).trim().withMessage('Insira o sexo do paciente.').isAlphanumeric().withMessage('O sexo possuí caracteres especiais.'),
+  body('tipo_sangue').isLength({ min: 1 }).trim().withMessage('Insira o tipo de sangue do paciente.').isAlphanumeric().withMessage('O tipo de sangue possuí caracteres especiais.'),
+  body('cpf').optional({ checkFalsy: true }).isLength({ min: 11 }).trim().withMessage('Insira o CPF do paciente.').isAlphanumeric().withMessage('O CPF do responsável possuí caracteres especiais.'),
+  body('doencas_pre').optional({ checkFalsy: true }).isLength({ min: 1 }).trim().withMessage('Insira as doenças pré existentes do paciente.').isAlphanumeric().withMessage('As doenças pré existentes possuem caracteres especiais.'),
+  body('internacoes').optional({ checkFalsy: true }).isLength({ min: 1 }).trim().withMessage('Insira as internações do paciente.').isAlphanumeric().withMessage('As internações possuem caracteres especiais.'),
+
+  // Sanitize fields.
+  sanitizeBody('nome').escape(),
+  sanitizeBody('dt_nascto').toDate(),
+  sanitizeBody('sexo').escape(),
+  sanitizeBody('tipo_sangue').escape(),
+  sanitizeBody('cpf').escape(),
+  sanitizeBody('doencas_pre').escape(),
+  sanitizeBody('internacoes').escape(),
+
+  // Process request after validation and sanitization.
+  (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req)
+
+    // Create Paciente object with escaped and trimmed data (and the old id!)
+    const paciente = new Paciente(
+      {
+        nome_pac: req.body.nome_pac,
+        end_pac: req.body.end_pac,
+        dt_nascto_pac: req.body.dt_nascto_pac,
+        fone_pac: req.body.fone_pac,
+        sexo_pac: req.body.sexo_pac,
+        tipo_sangue_pac: req.body.tipo_sangue_pac,
+        cpf_responsavel: req.body.cpf_responsavel,
+        _id: req.params.id
+      })
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render the form again with sanitized values and error messages.
+      res.render('paciente_form', { title: 'Atualizar paciente', paciente: paciente, errors: errors.array() })
+    } else {
+      // Data from form is valid. Update the record.
+      Paciente.findByIdAndUpdate(req.params.id, paciente, {}, function (err, thepaciente) {
+        if (err) { return next(err) }
+        // Successful - redirect to genre detail page.
+        res.redirect(thepaciente.url)
+      })
+    }
+  }
+]

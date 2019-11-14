@@ -15,3 +15,6 @@ block content
       ul
         each doenca in paciente.doencas_pre
           li #{doenca.doenca} desde #{doenca.desde}
+    hr
+    p
+    a(href=paciente.url+'/delete') Apagar paciente

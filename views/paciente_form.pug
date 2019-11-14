@@ -5,21 +5,21 @@ block content
 
   form(method='POST' action='')
     label(for='prontuario') Prontuário:
-    input.form-control(type='number' placeholder='Prontuário do paciente' name='prontuario' required='true' value=(undefined===paciente ? '' : paciente.prontuario) )
+    input#prontuario.form-control(type='number' placeholder='Prontuário do paciente' name='prontuario' required='true' value=(undefined===paciente ? '' : paciente.prontuario) )
     label(for='nome') Nome:
-    input.form-control(type='latin-name' placeholder='Nome do paciente' name='nome' required='true' value=(undefined===paciente ? '' : paciente.nome) )
+    input#nome.form-control(type='latin-name' placeholder='Nome do paciente' name='nome' required='true' value=(undefined===paciente ? '' : paciente.nome) )
     label(for='dt_nascto') Data de nascimento:
-    input.form-control(type='date' name='dt_nascto' required='true' value=(undefined===paciente ? '' : paciente.dt_nascto) )
+    input#dt_nascto.form-control(type='date' name='dt_nascto' required='true' value=(undefined===paciente ? '' : paciente.dt_nascto) )
     label(for='sexo') Sexo:
-    input.form-control(type='text' placeholder='Sexo do paciente' name='sexo' required='true' value=(undefined===paciente ? '' : paciente.sexo_pac))
+    input#sexo.form-control(type='text' placeholder='Sexo do paciente' name='sexo' required='true' value=(undefined===paciente ? '' : paciente.sexo_pac))
     label(for='tipo_sangue') Tipo de sangue:
-    input.form-control(type='text' placeholder='Sexo do paciente' name='tipo_sangue' required='true' value=(undefined===paciente ? '' : paciente.tipo_sangue_pac))
+    input#tipo_sangue.form-control(type='text' placeholder='Sexo do paciente' name='tipo_sangue' required='true' value=(undefined===paciente ? '' : paciente.tipo_sangue_pac))
     label(for='cpf') CPF:
-    input.form-control(type='number' placeholder='CPF do paciente' name='cpf' value=(undefined===paciente ? '' : paciente.cpf_responsavel))
+    input#cpf.form-control(type='number' placeholder='CPF do paciente' name='cpf' value=(undefined===paciente ? '' : paciente.cpf_responsavel))
     label(for='doencas_pre') Doenças pré existentes:
-    input.form-control(type='text' placeholder='Doenças pré existentes do paciente' name='doencas_pre' value=(undefined===paciente ? '' : paciente.doencas_pre))
+    input#doencas_pre.form-control(type='text' placeholder='Doenças pré existentes do paciente' name='doencas_pre' value=(undefined===paciente ? '' : paciente.doencas_pre))
     label(for='internacoes') Internações:
-    input.form-control(type='number' placeholder='Internações do paciente' name='internacoes' value=(undefined===paciente ? '' : paciente.internacoes))
+    input#internacoes.form-control(type='number' placeholder='Internações do paciente' name='internacoes' value=(undefined===paciente ? '' : paciente.internacoes))
     button.btn.btn-primary(type='submit') Enviar
   if errors 
     ul

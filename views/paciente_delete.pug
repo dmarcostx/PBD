@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1 #{title}: #{paciente.nome}
+  p #{paciente.tipo_sangue} - #{paciente.sexo} - #{paciente.dt_nascto}
+  
+  p Deseja apagar esse paciente?
+  form(method='POST' action='')
+    div.form-group
+      input#pacienteid.form-control(type='hidden',name='pacienteid', required='true', value=paciente._id )
+    button.btn.btn-primary(type='submit') Apagar 
